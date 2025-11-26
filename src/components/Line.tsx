@@ -1,0 +1,31 @@
+import type { JSX } from "react"
+
+type LineProps = {
+    word: string
+    solution?: string
+    isSubmitted?: boolean
+}
+
+export default function Line({ word, solution = "", isSubmitted = false }: LineProps): JSX.Element {
+    
+    return (
+        <div className="line">            
+            {word.split("").map((letter, index) => {
+                
+                let extraClass = ""
+                if (isSubmitted) {                    
+                    if (solution[index] === letter){
+                        extraClass = "correct-spot"
+                    } else if (solution.split("").includes(letter)) {
+                        extraClass = "correct-letter"
+                    } else {
+                        extraClass = "incorrect"
+                    }
+                }
+                
+                return <div key={index} className={`letter ${extraClass}`}>{letter}</div>
+            })}
+        </div>
+    )
+
+}
